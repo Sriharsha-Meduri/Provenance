@@ -368,24 +368,24 @@ const HomePage = ({ setPage }: { setPage: (page: Page) => void }) => (
         {[
           { 
             icon: Shield, 
-            title: "Deepfake Detection", 
-            desc: "Identifies facial manipulations and identity alterations using GenD model with CLIP-L/14 encoder and metric learning.",
+            title: "Deepfake Detection",
+            desc: "Detects faces with OpenCV YuNet and scores each one with a pretrained face-forgery classifier to flag manipulation.",
             details: [
-              "Face swap detection",
-              "Reenactment identification",
-              "Temporal consistency analysis",
-              "Cross-manipulation generalization"
+              "Per-face manipulation scoring",
+              "YuNet face detection",
+              "Frame-level consistency",
+              "No-face videos handled gracefully"
             ]
           },
           { 
             icon: Cpu, 
-            title: "AI-Generated Detection", 
-            desc: "Distinguishes synthetic videos from camera-captured footage using D3 training-free method with second-order statistics.",
+            title: "AI-Generated Detection",
+            desc: "Runs a pretrained AI-vs-real image classifier across sampled frames to estimate how likely the video is synthetically generated.",
             details: [
-              "Temporal feature analysis",
-              "Covariance matrix computation",
-              "Statistical artifact detection",
-              "Zero-shot calibration"
+              "Per-frame AI-vs-real scoring",
+              "Whole-frame analysis",
+              "Frame-agreement check",
+              "Pretrained classifier"
             ]
           },
           { 
@@ -644,7 +644,7 @@ const AnalyzePage = () => {
         <div className="mb-6 border-l-4 border-alert pl-4">
           <h3 className="font-serif font-black text-3xl mb-2">1. DEEPFAKE RISK ANALYSIS</h3>
           <p className="text-ink/70">
-            Assesses whether video contains facial manipulations or deepfake artifacts using <strong>GenD (Generalized Deepfake Detection)</strong> with CLIP-L/14 foundation encoder and metric-learning driven separation of real vs manipulated features.
+            Assesses whether the video contains facial manipulations or deepfake artifacts. Faces are detected with <strong>OpenCV YuNet</strong> and each is scored by a <strong>pretrained face-forgery classifier</strong>, then aggregated into a manipulation-likelihood score.
           </p>
         </div>
 
@@ -752,7 +752,7 @@ const AnalyzePage = () => {
         <div className="mb-6 border-l-4 border-alert pl-4">
           <h3 className="font-serif font-black text-3xl mb-2">2. AI-GENERATED VIDEO DETECTION</h3>
           <p className="text-ink/70">
-            Detects whether video is likely synthetically generated using <strong>D3 (Training-Free Detection)</strong> method. Leverages second-order temporal feature statistics with XCLIP encoder for training-free detection and statistical calibration.
+            Detects whether the video is likely synthetically generated using a <strong>pretrained AI-vs-real image classifier</strong> run across sampled frames, aggregating the mean "artificial" probability and per-frame agreement.
           </p>
         </div>
 
@@ -1119,22 +1119,22 @@ const HowItWorksPage = () => (
       <div className="grid md:grid-cols-3 gap-6">
         <div className="bg-paper-dark/20 border-2 border-alert p-6">
           <div className="text-alert font-mono text-sm mb-2">MODULE 01</div>
-          <h4 className="font-bold text-xl mb-3">GenD Detection</h4>
-          <p className="text-sm mb-4 opacity-90">Generalized Deepfake Detection using pretrained CLIP-L/14 vision encoder with metric-learning separation.</p>
+          <h4 className="font-bold text-xl mb-3">Deepfake Detection</h4>
+          <p className="text-sm mb-4 opacity-90">Face detection plus a pretrained face-forgery classifier scored on each detected face.</p>
           <div className="text-xs space-y-1 opacity-80">
-            <div><strong>Model:</strong> OpenAI CLIP-ViT-Large/14</div>
-            <div><strong>Method:</strong> Feature-space metric learning</div>
-            <div><strong>Training:</strong> Cross-manipulation generalization</div>
+            <div><strong>Models:</strong> OpenCV YuNet + ViT face-forgery classifier</div>
+            <div><strong>Method:</strong> Per-face classification, aggregated</div>
+            <div><strong>Training:</strong> Pretrained, zero fine-tuning</div>
           </div>
         </div>
         <div className="bg-paper-dark/20 border-2 border-alert p-6">
           <div className="text-alert font-mono text-sm mb-2">MODULE 02</div>
-          <h4 className="font-bold text-xl mb-3">D3 Detection</h4>
-          <p className="text-sm mb-4 opacity-90">Training-free AI-generated video detection via second-order temporal feature statistics.</p>
+          <h4 className="font-bold text-xl mb-3">AI-Generated Detection</h4>
+          <p className="text-sm mb-4 opacity-90">A pretrained AI-vs-real image classifier scored across sampled frames.</p>
           <div className="text-xs space-y-1 opacity-80">
-            <div><strong>Model:</strong> XCLIP / CLIP-ViT-Base-32</div>
-            <div><strong>Method:</strong> Statistical calibration (covariance, eigenvalues)</div>
-            <div><strong>Training:</strong> Zero-shot, training-free approach</div>
+            <div><strong>Model:</strong> ViT AI-image classifier</div>
+            <div><strong>Method:</strong> Per-frame scoring, mean + agreement</div>
+            <div><strong>Training:</strong> Pretrained, zero fine-tuning</div>
           </div>
         </div>
         <div className="bg-paper-dark/20 border-2 border-alert p-6">
@@ -1142,7 +1142,7 @@ const HowItWorksPage = () => (
           <h4 className="font-bold text-xl mb-3">Context Integrity</h4>
           <p className="text-sm mb-4 opacity-90">Miscontext detection through temporal reuse, semantic alignment, and environmental consistency.</p>
           <div className="text-xs space-y-1 opacity-80">
-            <div><strong>Model:</strong> ResNet-50, Scene classification</div>
+            <div><strong>Models:</strong> CLIP zero-shot + ResNet-50</div>
             <div><strong>Method:</strong> Multi-signal aggregation</div>
             <div><strong>Signals:</strong> Temporal (50%), Context (30%), Environmental (20%)</div>
           </div>
@@ -1166,13 +1166,13 @@ const HowItWorksPage = () => (
           desc: "The system accepts short video clips (5-20 seconds) and performs comprehensive preprocessing to create a structured data representation.",
           align: "left",
           details: [
-            "Video format validation (MP4, MOV, WebM)",
-            "Duration and quality checks",
-            "Frame extraction at fixed intervals (2 fps recommended)",
-            "Audio transcription to English for contextual analysis",
+            "Video format validation (MP4, MOV)",
+            "Duration checks (5-20 seconds)",
+            "Frame extraction at fixed intervals",
+            "Face detection on extracted frames",
             "Creation of lightweight content 'fingerprint'"
           ],
-          tech: "FFmpeg for video processing, Whisper API for audio transcription"
+          tech: "OpenCV + FFmpeg for video decoding and frame extraction"
         },
         { 
           step: "02", 
@@ -1194,13 +1194,13 @@ const HowItWorksPage = () => (
           desc: "Three independent analysis modules execute in parallel, each addressing a distinct manipulation dimension with specialized forensic signals.",
           align: "left",
           details: [
-            "Deepfake Risk: GenD model with CLIP-L/14 encoder for facial manipulation detection",
-            "AI-Generated Detection: D3 method using second-order temporal statistics (training-free)",
-            "Context Integrity: Temporal reuse, scene-claim alignment, environmental consistency",
+            "Deepfake Risk: YuNet face detection + a pretrained face-forgery classifier",
+            "AI-Generated Detection: a pretrained AI-vs-real image classifier over frames",
+            "Context Integrity: temporal reuse, scene-claim alignment, environmental consistency",
             "Each module outputs: risk level (LOW/MEDIUM/HIGH), signal explanations, confidence scores",
             "Independent execution - failures in one module do not block others"
           ],
-          tech: "CLIP/XCLIP encoders, Statistical analysis, Semantic alignment"
+          tech: "Hugging Face Transformers, OpenCV, CLIP (zero-shot), ResNet-50"
         },
         { 
           step: "04", 
@@ -1361,8 +1361,8 @@ const HowItWorksPage = () => (
               <div className="flex items-start gap-3 mb-2">
                 <Activity size={20} className="text-alert mt-1" />
                 <div>
-                  <strong className="block text-lg mb-1">Encrypted Data Transmission</strong>
-                  <p className="text-sm text-ink/70 leading-relaxed">All data transfers use TLS 1.3 encryption. API keys are rotated regularly and stored in secure vaults (AWS Secrets Manager, Azure Key Vault).</p>
+                  <strong className="block text-lg mb-1">No Accounts, No Storage</strong>
+                  <p className="text-sm text-ink/70 leading-relaxed">Hosted deployments run over HTTPS/TLS. The service has no user accounts or stored credentials — each upload is processed in-memory and discarded immediately after analysis.</p>
                 </div>
               </div>
             </li>
