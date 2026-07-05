@@ -54,6 +54,30 @@ npm run dev
 
 Frontend runs at `http://localhost:3000`
 
+## ☁️ Deployment
+
+The models need ~2-3 GB RAM, so the free 512 MB tiers won't run this. The
+recommended free setup is **backend on Hugging Face Spaces** (free CPU tier,
+16 GB RAM) and **frontend on Vercel**.
+
+### Backend → Hugging Face Spaces (Docker)
+1. Create a new Space at [huggingface.co/new-space](https://huggingface.co/new-space): **SDK = Docker**, hardware = **CPU basic (free)**.
+2. Push the contents of the `backend/` folder to the Space's git repo (it contains a `Dockerfile` and a Space `README.md`). For example:
+   ```bash
+   cd backend
+   git init && git add . && git commit -m "LiveGuard backend"
+   git remote add space https://huggingface.co/spaces/<user>/<space-name>
+   git push space main
+   ```
+3. The Space builds the image (models are baked in, so it's ready on boot) and serves at `https://<user>-<space-name>.hf.space`. Check `/health`.
+
+### Frontend → Vercel
+1. Import the `Sriharsha-Meduri/Liveguard` repo at [vercel.com/new](https://vercel.com/new). Framework auto-detects **Vite**.
+2. Add an environment variable **`VITE_API_URL`** = your Space URL (e.g. `https://<user>-<space-name>.hf.space`).
+3. Deploy. The CORS config already allows any `*.vercel.app` origin.
+
+> Free Spaces sleep when idle, so the first request after a nap cold-starts (~30-60 s). CPU inference is ~5-15 s per module.
+
 ## 📁 Project Structure
 
 ```

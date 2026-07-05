@@ -2,7 +2,9 @@ import os
 import cv2
 from typing import List
 from pathlib import Path
-TEMP_DIR = Path(__file__).parent / "temp"
+# Writable temp dir. Overridable via env so it works on hosts (e.g. HF Spaces)
+# where the app directory is read-only.
+TEMP_DIR = Path(os.environ.get("LIVEGUARD_TEMP", Path(__file__).parent / "temp"))
 ALLOWED_EXTENSIONS = {'.mp4', '.mov'}
 MIN_DURATION = 5  # seconds
 MAX_DURATION = 20  # seconds

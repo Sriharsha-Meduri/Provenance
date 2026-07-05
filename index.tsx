@@ -28,6 +28,9 @@ import {
   Github
 } from "lucide-react";
 
+// Backend API base URL. Configurable via VITE_API_URL; defaults to local dev.
+const API_URL = (import.meta as any).env?.VITE_API_URL || "http://localhost:8000";
+
 // --- Types ---
 
 type Page = 'home' | 'analyze' | 'how-it-works' | 'use-cases' | 'about';
@@ -521,7 +524,7 @@ const AnalyzePage = () => {
       const formData = new FormData();
       formData.append('video', deepfakeFile);
       
-      const response = await fetch('http://localhost:8000/analyze/deepfake', {
+      const response = await fetch(`${API_URL}/analyze/deepfake`, {
         method: 'POST',
         body: formData,
       });
@@ -560,7 +563,7 @@ const AnalyzePage = () => {
       const formData = new FormData();
       formData.append('video', syntheticFile);
       
-      const response = await fetch('http://localhost:8000/analyze/synthetic', {
+      const response = await fetch(`${API_URL}/analyze/synthetic`, {
         method: 'POST',
         body: formData,
       });
@@ -600,7 +603,7 @@ const AnalyzePage = () => {
       formData.append('video', contextFile);
       formData.append('claim', contextClaim);
       
-      const response = await fetch('http://localhost:8000/analyze/context', {
+      const response = await fetch(`${API_URL}/analyze/context`, {
         method: 'POST',
         body: formData,
       });
