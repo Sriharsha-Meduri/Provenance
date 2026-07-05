@@ -231,7 +231,7 @@ const HomePage = ({ setPage }: { setPage: (page: Page) => void }) => (
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         <div>
           <div className="inline-block bg-alert text-ink font-mono text-xs font-bold px-3 py-1 mb-6 border border-ink shadow-[2px_2px_0px_0px_#111111]">
-            PROVENANCE // RELOADED v2.0
+            RELOADED v2.0
           </div>
           <h1 className="font-serif font-black text-5xl md:text-7xl leading-[0.9] text-ink mb-8">
             TRUTH IN <br/>
