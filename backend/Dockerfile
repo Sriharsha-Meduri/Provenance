@@ -30,7 +30,7 @@ COPY . .
 
 # Writable runtime dirs (Spaces may run the app as a non-root user).
 ENV MPLCONFIGDIR=/tmp/mpl \
-    LIVEGUARD_TEMP=/tmp/liveguard \
+    PROVENANCE_TEMP=/tmp/provenance \
     PORT=7860
 
 EXPOSE 7860

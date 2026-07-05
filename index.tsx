@@ -214,7 +214,7 @@ const Footer = ({ setPage }: { setPage: (page: Page) => void }) => (
     </div>
       
     <div className="max-w-7xl mx-auto mt-12 pt-8 border-t border-paper/20 flex flex-col md:flex-row justify-between items-center text-sm text-paper/60">
-      <p>© 2024 Provenance Project. All rights reserved.</p>
+      <p>© 2026 Provenance Project. All rights reserved.</p>
       <p>This is a technical demonstration.</p>
     </div>
   </footer>
@@ -2147,33 +2147,34 @@ const AboutPage = () => (
                 <h4 className="font-serif font-bold text-3xl">Sriharsha Meduri</h4>
               </div>
               <p className="text-lg text-ink/90 font-bold mb-4">
-                BTech IT Student at Andhra University | ML Engineer | Cybersecurity Enthusiast
+                Head of Engineering @OviGuide | CTO &amp; Co-Founder @QuickPe | AI/ML &amp; Full-Stack Developer | Andhra University
               </p>
               <p className="text-ink/80 leading-relaxed mb-4">
-                Passionate about building AI-powered solutions for security and content verification. 
-                Specializing in machine learning, computer vision, and cybersecurity applications.
+                I build intelligent, scalable products across AI, machine learning, and full-stack
+                development, spanning education, fintech, cybersecurity, and computer vision. I enjoy
+                owning the whole lifecycle, from model development to deployment.
               </p>
               <div className="bg-paper-dark p-6 border-l-4 border-alert mb-6">
                 <h5 className="font-bold text-lg mb-3 text-alert">Key Achievements</h5>
                 <ul className="space-y-2 text-sm text-ink/80">
                   <li className="flex items-start gap-2">
                     <CheckCircle className="text-success mt-0.5 shrink-0" size={16} />
-                    <span>Built <strong>PhishingLens</strong> - Multi-modal phishing detection system achieving 96% accuracy</span>
+                    <span><strong>Winner</strong>, National Cybersecurity Hackathon (organised by MeitY / ISEA)</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="text-success mt-0.5 shrink-0" size={16} />
-                    <span>Secured <strong>2nd place</strong> in National Cybersecurity Bootcamp (150+ participants, sponsored by MeitY)</span>
+                    <span>Built <strong>PhishingLens</strong>, a multi-modal phishing detection system achieving 96% accuracy</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <CheckCircle className="text-success mt-0.5 shrink-0" size={16} />
-                    <span>Co-Lead, Cybersecurity Chapter at Google Developer Student Clubs</span>
+                    <span>Co-Lead, Cybersecurity Chapter at GDGoC (Google Developer Groups on Campus)</span>
                   </li>
                 </ul>
               </div>
             </div>
             <div className="flex flex-col gap-4 min-w-[200px]">
               <a 
-                href="https://sriharshameduri.netlify.app/" 
+                href="https://sriharshameduri.in"
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-alert text-ink font-bold border-2 border-ink hover:bg-ink hover:text-alert transition-all text-center inline-flex items-center gap-2 justify-center shadow-hard"

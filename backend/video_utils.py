@@ -4,7 +4,7 @@ from typing import List
 from pathlib import Path
 # Writable temp dir. Overridable via env so it works on hosts (e.g. HF Spaces)
 # where the app directory is read-only.
-TEMP_DIR = Path(os.environ.get("LIVEGUARD_TEMP", Path(__file__).parent / "temp"))
+TEMP_DIR = Path(os.environ.get("PROVENANCE_TEMP", Path(__file__).parent / "temp"))
 ALLOWED_EXTENSIONS = {'.mp4', '.mov'}
 MIN_DURATION = 5  # seconds
 MAX_DURATION = 20  # seconds

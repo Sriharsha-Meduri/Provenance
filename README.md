@@ -197,7 +197,7 @@ claim: "Video description text" (for context module only)
 **Sriharsha Meduri**
 - BTech IT Student at Andhra University
 - ML Engineer | Cybersecurity Enthusiast
-- Portfolio: [sriharshameduri.netlify.app](https://sriharshameduri.netlify.app/)
+- Portfolio: [sriharshameduri.in](https://sriharshameduri.in)
 - GitHub: [Sriharsha-Meduri](https://github.com/Sriharsha-Meduri)
 
 ## 📄 License
